@@ -20,6 +20,10 @@ export class Map extends Common
         y = tonumber line\match 'y="(.-)"'
         --@bubble = Bubble self, x, y
 
+  update: (dt) =>
+    for item in *@world\getItems!
+      item\update dt
+
   draw: =>
     for item in *@world\getItems!
       item\draw!

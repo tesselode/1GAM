@@ -2,9 +2,16 @@ export game
 
 game =
   enter: =>
+    @signal = signal.new!
     @map = Map 'level/big arena.oel'
-
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+
+  update: (dt) =>
+    @map\update dt
+
+  keypressed: (key) =>
+    if key == 'up'
+      @signal.emit 'jump'
 
   draw: =>
     --redner to canvas

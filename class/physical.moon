@@ -5,13 +5,13 @@ export class Physical extends Common
     @world\add self, x, y, w, h
 
   getCenter: =>
-    x, y, w, h = @state.world\getRect self
+    x, y, w, h = @world\getRect self
     x + w / 2, y + h / 2
 
   move: (dx, dy) =>
     --moves to a relative position
-    x, y = @state.world\getRect self
-    return @state.world\move self, x + dx, y + dy, @filter
+    x, y = @world\getRect self
+    return @world\move self, x + dx, y + dy, @filter
 
   drawDebug: =>
     with love.graphics

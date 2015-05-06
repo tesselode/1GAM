@@ -23,6 +23,8 @@ export class Player extends Physical
     @baseJumpPower = 450
     @additionalJumpPower = 100
 
+    game.signal.register 'jump', -> @jump!
+
   walk: (dt, v) =>
     @vx += v * @walkAcceleration * dt
 
@@ -30,7 +32,7 @@ export class Player extends Physical
     if @onGround
       @vy = -@baseJumpPower - @additionalJumpPower * (math.abs(@vx) / @horizontalMaxSpeed)
       @jumping = true
-      @animation.jump\gotoFrame 2
+      --@animation.jump\gotoFrame 2
 
   endJump: =>
     @jumping = false
