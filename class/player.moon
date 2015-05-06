@@ -1,5 +1,5 @@
 export class Player extends Physical
-  new: (world, x, y) =>
+  new: (world, x, y, character, @playerNum) =>
     super world, x, y, 16, 16
 
     @filter = (other) =>
@@ -23,7 +23,16 @@ export class Player extends Physical
     @baseJumpPower = 450
     @additionalJumpPower = 100
 
-    game.signal.register 'jump', -> @jump!
+    --signals
+    game.signal.register 'player-walk', (playerNum, dt, v) ->
+      if playerNum == @playerNum
+        @walk dt, v
+    game.signal.register 'player-jump', (playerNum) ->
+      if playerNum == @playerNum
+        @jump!
+    game.signal.register 'player-end-jump', (playerNum) ->
+      if playerNum == @playerNum
+        @endJump!
 
   walk: (dt, v) =>
     @vx += v * @walkAcceleration * dt

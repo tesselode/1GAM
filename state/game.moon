@@ -4,14 +4,16 @@ game =
   enter: =>
     @signal = signal.new!
     @map = Map 'level/big arena.oel'
+    @inputManager = InputManager!
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   update: (dt) =>
+    @inputManager\update dt
     @map\update dt
 
-  keypressed: (key) =>
-    if key == 'up'
-      @signal.emit 'jump'
+  keypressed: (key) => @inputManager\keypressed key
+
+  keyreleased: (key) => @inputManager\keyreleased key
 
   draw: =>
     --redner to canvas

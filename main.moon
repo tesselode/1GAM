@@ -19,6 +19,7 @@ love.load =  ->
   require 'class.wall'
   require 'class.player'
   require 'class.map'
+  require 'class.input-manager'
 
   --load states
   require 'state.game'
