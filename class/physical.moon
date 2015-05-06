@@ -4,7 +4,7 @@ export class Physical extends Common
 
     @world\add self, x, y, w, h
 
-  draw: =>
+  drawDebug: =>
     with love.graphics
       .setColor 150, 150, 150, 255
       .rectangle 'fill', @world\getRect self

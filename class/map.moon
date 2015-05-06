@@ -7,3 +7,4 @@ export class Map extends Common
   draw: =>
     for item in *@world\getItems!
       item\draw!
+      item\drawDebug!
