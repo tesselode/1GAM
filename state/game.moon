@@ -2,7 +2,7 @@ export game
 
 game =
   enter: =>
-    @map = Map!
+    @map = Map 'level/big arena.oel'
 
   draw: =>
     @map\draw!
