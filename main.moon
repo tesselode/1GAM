@@ -1,5 +1,11 @@
 love.load =  ->
+  love.graphics.setDefaultFilter 'nearest', 'nearest'
+
   export *
+
+  --constants
+  WIDTH = 768
+  HEIGHT = 432
 
   gamestate = require 'lib.gamestate'
   signal = require 'lib.signal'
