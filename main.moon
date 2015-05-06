@@ -7,6 +7,7 @@ love.load =  ->
 
   require 'class.common'
   require 'class.physical'
+  require 'class.map'
 
   require 'state.game'
 
