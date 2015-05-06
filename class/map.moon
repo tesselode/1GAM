@@ -18,7 +18,7 @@ export class Map extends Common
       elseif line\find '<Bubble'
         x = tonumber line\match 'x="(.-)"'
         y = tonumber line\match 'y="(.-)"'
-        --@bubble = Bubble self, x, y
+        @bubble = Bubble @world, x, y
 
   update: (dt) =>
     for item in *@world\getItems!

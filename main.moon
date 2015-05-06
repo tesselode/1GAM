@@ -9,6 +9,7 @@ love.load =  ->
 
   --load libraries
   gamestate = require 'lib.gamestate'
+  timer = require 'lib.timer'
   signal = require 'lib.signal'
   bump = require 'lib.bump'
   anim8 = require 'lib.anim8'
@@ -47,6 +48,7 @@ love.load =  ->
   require 'class.physical'
   require 'class.wall'
   require 'class.player'
+  require 'class.bubble'
   require 'class.map'
   require 'class.input-manager'
 

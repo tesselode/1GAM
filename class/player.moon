@@ -13,6 +13,7 @@ export class Player extends Physical
     @onGround = false
     @jumping = false
     @time = 0
+    @won = false
 
     --tweak these!
     @gravity = 1500
@@ -92,6 +93,11 @@ export class Player extends Physical
           @vy = 0
           if col.normal.y < 0
             @onGround = true
+
+    --check for win condition
+    if (not @won) and @time >= 60
+      @won = true
+      game.signal.emit 'player-win', @playerNum
 
     --reset walking animation
     if math.abs(@vx) < 10
