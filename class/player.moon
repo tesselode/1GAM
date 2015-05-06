@@ -23,6 +23,14 @@ export class Player extends Physical
     @baseJumpPower = 450
     @additionalJumpPower = 100
 
+    --animation stuff
+    @animation =
+      walk: animation[character].walk\clone!
+      run: animation[character].run\clone!
+      jump: animation[character].jump\clone!
+    @facingDirection = 1
+    @drawDepth = 100
+
     --signals
     game.signal.register 'player-walk', (playerNum, dt, v) ->
       if playerNum == @playerNum
@@ -85,9 +93,46 @@ export class Player extends Physical
           if col.normal.y < 0
             @onGround = true
 
+    --reset walking animation
+    if math.abs(@vx) < 10
+      @animation.walk\gotoFrame 1
+      @animation.run\gotoFrame 1
+    --face the right direction
+    if math.abs(@vx) > 10
+      @facingDirection = lume.sign @vx
+    --falling animation
+    if @vy > 0
+      @animation.jump\gotoFrame 3
+
+    --update animations
+    @animation.walk\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
+    @animation.run\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
+    @animation.jump\update dt
+
+  draw: =>
+    x, y = @getCenter!
+    with love.graphics
+      .setColor 255, 255, 255, 255
+      if @onGround
+        --draw walking animation
+        if math.abs(@vx) / @horizontalMaxSpeed > 0.6
+          @animation.run\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+        else
+          @animation.walk\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+      else
+        --draw jumping animation
+        @animation.jump\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+
+      --draw timer below player
+      text = tostring @time
+      if text\find '%.'
+        text = text\match '(.*%.%d)'
+      .setColor 255, 255, 255, 255
+      .printCentered text, font.default, x, y + 16
+
   drawDebug: =>
     --draw hitbox
-    if true
+    if false
       x, y, w, h = @world\getRect self
       with love.graphics
         .setColor 255, 255, 255, 100
