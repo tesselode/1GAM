@@ -25,6 +25,9 @@ export class Map extends Common
       item\update dt
 
   draw: =>
-    for item in *@world\getItems!
+    --draw all physical objects
+    items = @world\getItems!
+    table.sort items, (a, b) -> return a.drawDepth < b.drawDepth
+    for item in *items
       item\draw!
       item\drawDebug!
