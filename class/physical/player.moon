@@ -33,6 +33,9 @@ export class Player extends Physical
     @facingDirection = 1
     @drawDepth = 100
 
+    --sound stuff
+    @walkSoundTimer = 1
+
     --signals
     @walkRegistry = game.signal.register 'player-walk', (playerNum, dt, v) ->
       if playerNum == @playerNum
@@ -117,10 +120,6 @@ export class Player extends Physical
     @animation.walk\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
     @animation.run\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
     @animation.jump\update dt
-
-    --play landing sound
-    --if (not @onGroundPrevious) and @onGround
-      --sound.playerLand\play!
 
   clearSignals: =>
     game.signal.remove 'player-walk', @walkRegistry
