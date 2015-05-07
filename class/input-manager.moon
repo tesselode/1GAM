@@ -10,23 +10,29 @@ export class InputManager
       right: 'd'
       jump: 'w'
 
+    @enabled = false
+    game.signal.register 'game-start', -> @enabled = true
+
   update: (dt) =>
-    --walking
-    for i, v in ipairs @controls
-      with love.keyboard
-        if .isDown v.left
-          game.signal.emit 'player-walk', i, dt, -1
-        elseif .isDown v.right
-          game.signal.emit 'player-walk', i, dt, 1
+    if @enabled
+      --walking
+      for i, v in ipairs @controls
+        with love.keyboard
+          if .isDown v.left
+            game.signal.emit 'player-walk', i, dt, -1
+          elseif .isDown v.right
+            game.signal.emit 'player-walk', i, dt, 1
 
   keypressed: (key) =>
-    --jumping
-    for i, v in ipairs @controls
-      if key == v.jump
-        game.signal.emit 'player-jump', i
+    if @enabled
+      --jumping
+      for i, v in ipairs @controls
+        if key == v.jump
+          game.signal.emit 'player-jump', i
 
   keyreleased: (key) =>
-    --end jump
-    for i, v in ipairs @controls
-      if key == v.jump
-        game.signal.emit 'player-end-jump', i
+    if @enabled
+      --end jump
+      for i, v in ipairs @controls
+        if key == v.jump
+          game.signal.emit 'player-end-jump', i

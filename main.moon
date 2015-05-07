@@ -13,6 +13,7 @@ love.load =  ->
   signal = require 'lib.signal'
   bump = require 'lib.bump'
   anim8 = require 'lib.anim8'
+  flux = require 'lib.flux'
   lume = require 'lib.lume'
   require 'extra'
 
@@ -51,6 +52,8 @@ love.load =  ->
   require 'class.bubble'
   require 'class.map'
   require 'class.input-manager'
+  require 'class.animatable'
+  require 'class.hud'
 
   --load states
   require 'state.game'
