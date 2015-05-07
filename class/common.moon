@@ -8,6 +8,8 @@ export class Common
     @timer.update dt
     @tween\update dt
 
+  clearSignals: =>
+
   draw: =>
 
   drawDebug: =>

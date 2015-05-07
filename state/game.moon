@@ -30,11 +30,13 @@ game =
       if @p1score == 2 or @p2score == 2
         --go back to the menu
         @signal.emit 'match-end', playerNum
+        sound.voiceMatchOver\play!
         @timer.add 2, ->
           gamestate.switch menu
       else
         --go to next round
         @signal.emit 'round-end', playerNum
+        sound.voiceRoundOver\play!
         @timer.add 2, ->
           @nextRound!
 
@@ -45,12 +47,16 @@ game =
     @rounds += 1
 
     --load map
+    if @map
+      @map\clearSignals!
     @map = Map 'level/big arena.oel'
 
     --start the game
     @signal.emit 'game-countoff'
+    sound.voiceReady\play!
     @timer.add 1.2, ->
       @signal.emit 'game-start'
+      sound.voiceGo\play!
 
   update: (dt) =>
     --fixed timestep updates

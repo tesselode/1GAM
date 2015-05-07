@@ -11,6 +11,7 @@ export class Player extends Physical
     @vy = 0
 
     @onGround = false
+    @onGroundPrevious = false
     @jumping = false
     @time = 0
     @won = false
@@ -33,13 +34,13 @@ export class Player extends Physical
     @drawDepth = 100
 
     --signals
-    game.signal.register 'player-walk', (playerNum, dt, v) ->
+    @walkRegistry = game.signal.register 'player-walk', (playerNum, dt, v) ->
       if playerNum == @playerNum
         @walk dt, v
-    game.signal.register 'player-jump', (playerNum) ->
+    @jumpRegistry = game.signal.register 'player-jump', (playerNum) ->
       if playerNum == @playerNum
         @jump!
-    game.signal.register 'player-end-jump', (playerNum) ->
+    @endJumpRegistry = game.signal.register 'player-end-jump', (playerNum) ->
       if playerNum == @playerNum
         @endJump!
 
@@ -50,7 +51,8 @@ export class Player extends Physical
     if @onGround
       @vy = -@baseJumpPower - @additionalJumpPower * (math.abs(@vx) / @horizontalMaxSpeed)
       @jumping = true
-      --@animation.jump\gotoFrame 2
+      @animation.jump\gotoFrame 2
+      sound.playerJump\play!
 
   endJump: =>
     @jumping = false
@@ -59,6 +61,7 @@ export class Player extends Physical
     super dt
 
     --reset on ground status
+    @onGroundPrevious = @onGround
     @onGround = false
 
     --horizontal drag
@@ -114,6 +117,15 @@ export class Player extends Physical
     @animation.walk\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
     @animation.run\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
     @animation.jump\update dt
+
+    --play landing sound
+    --if (not @onGroundPrevious) and @onGround
+      --sound.playerLand\play!
+
+  clearSignals: =>
+    game.signal.remove 'player-walk', @walkRegistry
+    game.signal.remove 'player-jump', @jumpRegistry
+    game.signal.remove 'player-end-jump', @endJumpRegistry
 
   draw: =>
     x, y = @getCenter!

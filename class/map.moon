@@ -24,6 +24,10 @@ export class Map extends Common
     for item in *@world\getItems!
       item\update dt
 
+  clearSignals: =>
+    for item in *@world\getItems!
+      item\clearSignals!
+
   draw: =>
     --draw all physical objects
     items = @world\getItems!

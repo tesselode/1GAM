@@ -54,6 +54,12 @@ love.load =  ->
   require 'class.input-manager'
   require 'class.cosmetic.animatable'
   require 'class.cosmetic.hud'
+  require 'class.cosmetic.sound'
+
+  --load sounds
+  sound = {}
+  for file in *love.filesystem.getDirectoryItems 'sound'
+    sound[file\match('(.*).wav')] = Sound 'sound/'..file
 
   --load states
   require 'state.game'

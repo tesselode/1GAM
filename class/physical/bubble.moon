@@ -35,6 +35,7 @@ export class Bubble extends Physical
             @brightness = 255
             @canSwitchPlayers = false
             @timer.add 1, -> @canSwitchPlayers = true
+            sound.bubbleGet\play!
             break
 
     if @following
