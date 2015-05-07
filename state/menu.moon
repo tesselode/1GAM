@@ -25,7 +25,7 @@ menu =
 
     if key == 'return'
       if @animatable.menu.selected == 1
-        gamestate.switch game, {round: 1, p1score: 0, p2score: 0}
+        gamestate.switch game
       if @animatable.menu.selected == 3
         love.event.quit!
 
