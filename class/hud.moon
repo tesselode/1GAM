@@ -10,10 +10,11 @@ export class Hud extends Common
     game.signal.register 'game-countoff', ->
       @tween\to self, .5, {blackAlpha: 0}
 
-      countoff = Animatable WIDTH / 2, HEIGHT / 2
+      countoff = Animatable WIDTH / 2, HEIGHT / 2 + HEIGHT
       with countoff
         \addItem 'Ready?', font.big, 0, 0
         \addItem 'Go!', font.big, 0, HEIGHT
+        .tween\to(countoff, 0.5, {y: HEIGHT / 2})\ease 'backinout'
         .timer.add 1, ->
           .tween\to(countoff, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
           .timer.add 1, ->
