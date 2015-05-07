@@ -15,7 +15,7 @@ love.load =  ->
   anim8 = require 'lib.anim8'
   flux = require 'lib.flux'
   lume = require 'lib.lume'
-  require 'extra'
+  require 'lib.extra'
 
   --load images
   image = {}
@@ -46,14 +46,14 @@ love.load =  ->
 
   --load classes
   require 'class.common'
-  require 'class.physical'
-  require 'class.wall'
-  require 'class.player'
-  require 'class.bubble'
+  require 'class.physical.physical'
+  require 'class.physical.wall'
+  require 'class.physical.player'
+  require 'class.physical.bubble'
   require 'class.map'
   require 'class.input-manager'
-  require 'class.animatable'
-  require 'class.hud'
+  require 'class.cosmetic.animatable'
+  require 'class.cosmetic.hud'
 
   --load states
   require 'state.game'
