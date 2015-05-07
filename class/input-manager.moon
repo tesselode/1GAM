@@ -11,6 +11,7 @@ export class InputManager
       jump: 'w'
 
     @enabled = false
+    game.signal.register 'game-countoff', -> @enabled = false
     game.signal.register 'game-start', -> @enabled = true
 
   update: (dt) =>

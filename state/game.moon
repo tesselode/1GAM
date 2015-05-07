@@ -9,12 +9,21 @@ game =
     --various components
     @signal = signal.new!
     @timer = timer.new!
-    @map = Map 'level/big arena.oel'
     @inputManager = InputManager!
     @hud = Hud!
 
     --cosmetic
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
+
+    @signal.register 'player-win', ->
+      @timer.add 2, ->
+        @nextRound!
+
+    @nextRound!
+
+  nextRound: =>
+    --load map
+    @map = Map 'level/big arena.oel'
 
     --start the game
     @signal.emit 'game-countoff'
@@ -33,7 +42,10 @@ game =
       @map\update @updateInterval
       @hud\update @updateInterval
 
-  keypressed: (key) => @inputManager\keypressed key
+  keypressed: (key) =>
+    @inputManager\keypressed key
+    if key == 'f1'
+      @startRound!
 
   keyreleased: (key) => @inputManager\keyreleased key
 
