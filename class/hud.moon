@@ -10,29 +10,44 @@ export class Hud extends Common
     game.signal.register 'game-countoff', ->
       @tween\to self, .5, {blackAlpha: 0}
 
-      countoff = Animatable WIDTH / 2, HEIGHT / 2 + HEIGHT
-      with countoff
-        \addItem 'Ready?', font.big, 0, 0
+      message = Animatable WIDTH / 2, HEIGHT / 2 + HEIGHT
+      with message
+        \addItem 'Round '..game.rounds, font.big, 0, 0
+        \addItem game.p1score..' - '..game.p2score, font.medium, 0, HEIGHT * .1
         \addItem 'Go!', font.big, 0, HEIGHT
-        .tween\to(countoff, 0.5, {y: HEIGHT / 2})\ease 'backinout'
+        .tween\to(message, 0.5, {y: HEIGHT / 2})\ease 'backinout'
         .timer.add 1, ->
-          .tween\to(countoff, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
+          .tween\to(message, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
           .timer.add 1, ->
-            .tween\to(countoff, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
-      table.insert @animatable, countoff
+            .tween\to(message, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
+      table.insert @animatable, message
 
-    --win message
-    game.signal.register 'player-win', (playerNum) ->
+    --round win message
+    game.signal.register 'round-end', (playerNum) ->
       @timer.add 1.5, ->
         @tween\to self, .5, {blackAlpha: 255}
 
-      winMessage = Animatable WIDTH / 2, HEIGHT / 2
-      with winMessage
+      message = Animatable WIDTH / 2, HEIGHT / 2
+      with message
         \addItem 'Player '..playerNum..' wins!', font.big, 0, HEIGHT
-        .tween\to(winMessage, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
+        .tween\to(message, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
         .timer.add 1.5, ->
-          .tween\to(winMessage, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
-      table.insert @animatable, winMessage
+          .tween\to(message, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
+      table.insert @animatable, message
+
+    --match win message
+    game.signal.register 'match-end', (playerNum) ->
+      @timer.add 1.5, ->
+        @tween\to self, .5, {blackAlpha: 255}
+
+      message = Animatable WIDTH / 2, HEIGHT / 2
+      with message
+        \addItem 'Champion:', font.medium, 0, HEIGHT * .95
+        \addItem 'Player '..playerNum, font.big, 0, HEIGHT * 1.05
+        .tween\to(message, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
+        .timer.add 1.5, ->
+          .tween\to(message, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
+      table.insert @animatable, message
 
   update: (dt) =>
     super dt

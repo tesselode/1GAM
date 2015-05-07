@@ -14,6 +14,8 @@ export class Bubble extends Physical
     @alpha = 150
     @brightness = 0
 
+    @drawDepth = 50
+
     game.signal.register 'player-win', -> @enabled = false
 
   update: (dt) =>

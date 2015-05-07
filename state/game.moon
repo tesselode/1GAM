@@ -12,16 +12,38 @@ game =
     @inputManager = InputManager!
     @hud = Hud!
 
+    --gameflow
+    @rounds = 0
+    @p1score = 0
+    @p2score = 0
+
     --cosmetic
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
-    @signal.register 'player-win', ->
-      @timer.add 2, ->
-        @nextRound!
+    @signal.register 'player-win', (playerNum) ->
+      --track scores
+      if playerNum == 1
+        @p1score += 1
+      elseif playerNum == 2
+        @p2score += 1
+
+      if @p1score == 2 or @p2score == 2
+        --go back to the menu
+        @signal.emit 'match-end', playerNum
+        @timer.add 2, ->
+          gamestate.switch menu
+      else
+        --go to next round
+        @signal.emit 'round-end', playerNum
+        @timer.add 2, ->
+          @nextRound!
+
 
     @nextRound!
 
   nextRound: =>
+    @rounds += 1
+
     --load map
     @map = Map 'level/big arena.oel'
 

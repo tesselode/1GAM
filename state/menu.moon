@@ -1,12 +1,16 @@
 export menu
 
 menu =
-  enter: =>
+  enter: (previous) =>
     @timer = timer.new!
     @tween = flux.group!
 
     @takeInput = true
-    @blackAlpha = 0
+    if previous == game
+      @blackAlpha = 255
+      @tween\to self, 0.5, {blackAlpha: 0}
+    else
+      @blackAlpha = 0
 
     @animatable =
       title: Animatable WIDTH * .5, HEIGHT * (1/3)
