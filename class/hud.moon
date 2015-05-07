@@ -13,8 +13,20 @@ export class Hud extends Common
           .tween\to(countoff, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
           .timer.add 1, ->
             .tween\to(countoff, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
-              
+
       table.insert @animatable, countoff
+
+    --win message
+    game.signal.register 'player-win', (playerNum) ->
+      winMessage = Animatable WIDTH / 2, HEIGHT / 2
+
+      with winMessage
+        \addItem 'Player '..playerNum..' wins!', font.big, 0, HEIGHT
+        .tween\to(winMessage, 0.5, {y: HEIGHT / 2 - HEIGHT})\ease 'backinout'
+        .timer.add 1.5, ->
+          .tween\to(winMessage, 0.5, {y: HEIGHT / 2 - 2 * HEIGHT})\ease 'backinout'
+
+      table.insert @animatable, winMessage
 
   update: (dt) =>
     for animatable in *@animatable

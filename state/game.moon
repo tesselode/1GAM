@@ -6,11 +6,14 @@ game =
     @updateInterval = 1 / 120
     @updateTimer = @updateInterval
 
+    --various components
     @signal = signal.new!
     @timer = timer.new!
     @map = Map 'level/big arena.oel'
     @inputManager = InputManager!
     @hud = Hud!
+
+    --cosmetic
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
     --start the game
@@ -24,6 +27,7 @@ game =
     while @updateTimer <= 0
       @updateTimer += @updateInterval
 
+      --update components
       @timer.update @updateInterval
       @inputManager\update @updateInterval
       @map\update @updateInterval
