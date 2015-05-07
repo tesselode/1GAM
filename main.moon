@@ -57,10 +57,11 @@ love.load =  ->
 
   --load states
   require 'state.game'
+  require 'state.menu'
 
   --initialize gamestates
   with gamestate
-    .switch game
+    .switch menu
     .registerEvents!
 
 love.keypressed = (key) ->
