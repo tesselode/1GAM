@@ -35,7 +35,7 @@ export class Map extends Common
     --draw tiles
     with love.graphics
       .setColor 5, 251, 255, 255
-      .rectangle 'fill', 0, 0, WIDTH, HEIGHT
+      --.rectangle 'fill', 0, 0, WIDTH, HEIGHT
       .setColor 255, 255, 255, 255
       .draw @environment
 

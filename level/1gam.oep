@@ -51,7 +51,31 @@
       </ScrollFactor>
     </LayerDefinition>
     <LayerDefinition xsi:type="TileLayerDefinition">
+      <Name>TilesBack</Name>
+      <Grid>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Grid>
+      <ScrollFactor>
+        <X>1</X>
+        <Y>1</Y>
+      </ScrollFactor>
+      <ExportMode>CSV</ExportMode>
+    </LayerDefinition>
+    <LayerDefinition xsi:type="TileLayerDefinition">
       <Name>Tiles</Name>
+      <Grid>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Grid>
+      <ScrollFactor>
+        <X>1</X>
+        <Y>1</Y>
+      </ScrollFactor>
+      <ExportMode>CSV</ExportMode>
+    </LayerDefinition>
+    <LayerDefinition xsi:type="TileLayerDefinition">
+      <Name>Tiles2</Name>
       <Grid>
         <Width>16</Width>
         <Height>16</Height>
@@ -66,7 +90,7 @@
   <Tilesets>
     <Tileset>
       <Name>Environment</Name>
-      <FilePath>..\image\environment.png</FilePath>
+      <FilePath>sheet_environment.png</FilePath>
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
@@ -74,8 +98,8 @@
       <TileSep>0</TileSep>
     </Tileset>
     <Tileset>
-      <Name>Environment2</Name>
-      <FilePath>..\image\environment2.png</FilePath>
+      <Name>Other</Name>
+      <FilePath>sheet_other.png</FilePath>
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
