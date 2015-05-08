@@ -19,24 +19,24 @@ love.load =  ->
 
   --load images
   image = {}
-  image.spritesheet = love.graphics.newImage 'image/spritesheet.png'
+  image.characters = love.graphics.newImage 'image/characters.png'
 
   --load animations
   grid =
-    spriteSheet: anim8.newGrid 32, 32, 736, 128
+    characters: anim8.newGrid 32, 32, 736, 128
   animation =
     guy1:
-      walk: anim8.newAnimation grid.spriteSheet('1-4', 1), .12
-      run: anim8.newAnimation grid.spriteSheet('15-18', 1), .12
-      jump: anim8.newAnimation grid.spriteSheet('5-7', 1), {.1, 100, 100}
+      walk: anim8.newAnimation grid.characters('1-4', 1), .12
+      run: anim8.newAnimation grid.characters('15-18', 1), .12
+      jump: anim8.newAnimation grid.characters('5-7', 1), {.1, 100, 100}
     guy2:
-      walk: anim8.newAnimation grid.spriteSheet('1-4', 2), .12
-      run: anim8.newAnimation grid.spriteSheet('15-18', 2), .12
-      jump: anim8.newAnimation grid.spriteSheet('5-7', 2), {.1, 100, 100}
+      walk: anim8.newAnimation grid.characters('1-4', 2), .12
+      run: anim8.newAnimation grid.characters('15-18', 2), .12
+      jump: anim8.newAnimation grid.characters('5-7', 2), {.1, 100, 100}
     guy3:
-      walk: anim8.newAnimation grid.spriteSheet('1-4', 3), .12
-      run: anim8.newAnimation grid.spriteSheet('15-18', 3), .12
-      jump: anim8.newAnimation grid.spriteSheet('5-7', 3), {.1, 100, 100}
+      walk: anim8.newAnimation grid.characters('1-4', 3), .12
+      run: anim8.newAnimation grid.characters('15-18', 3), .12
+      jump: anim8.newAnimation grid.characters('5-7', 3), {.1, 100, 100}
 
   --load fonts
   font =

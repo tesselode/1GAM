@@ -133,12 +133,12 @@ export class Player extends Physical
       if @onGround
         --draw walking animation
         if math.abs(@vx) / @horizontalMaxSpeed > 0.6
-          @animation.run\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+          @animation.run\draw image.characters, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
         else
-          @animation.walk\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+          @animation.walk\draw image.characters, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
       else
         --draw jumping animation
-        @animation.jump\draw image.spritesheet, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+        @animation.jump\draw image.characters, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
 
       --draw timer below player
       text = tostring @time
