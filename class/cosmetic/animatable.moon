@@ -5,20 +5,20 @@ export class Animatable extends Common
 
     @item = {}
     @scale = 1
-    @color = {r: 255, g: 255, b: 255, a: 255}
 
-  addItem: (text, font, x, y) =>
+  addItem: (text, font, x, y, color) =>
     item =
       text: text
       font: font
+      color: color or {r: 255, g: 255, b: 255, a: 255}
       x: x or 0
       y: y or 0
     table.insert @item, item
 
   draw: =>
     with love.graphics
-      .setColor @color.r, @color.g, @color.b, @color.a
       for item in *@item
+        .setColor item.color.r, item.color.g, item.color.b, item.color.a
         .printCentered item.text, item.font, @x + item.x, @y + item.y, 0, @scale, @scale
 
 --for menus
