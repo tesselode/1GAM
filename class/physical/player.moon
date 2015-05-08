@@ -144,7 +144,7 @@ export class Player extends Physical
       text = tostring @time
       if text\find '%.'
         text = text\match '(.*%.%d)'
-      .setColor 255, 255, 255, 255
+      .setColor 0, 0, 0, 255
       .printCentered text, font.default, x, y + 16
 
   drawDebug: =>

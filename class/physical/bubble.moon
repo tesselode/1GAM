@@ -53,12 +53,22 @@ export class Bubble extends Physical
     @x = lume.lerp @x, @goalX, @moveSpeed
     @y = lume.lerp @y, @goalY, @moveSpeed
     @radius = lume.lerp @radius, @goalRadius, .1
-    @alpha = lume.lerp @alpha, 150, .03
-    @brightness = lume.lerp @brightness, 0, .03
+    @alpha = lume.lerp @alpha, 100, .03
+    @brightness = lume.lerp @brightness, 0, .01
 
   draw: =>
     with love.graphics
-      .setColor @brightness, @brightness, 255, @alpha
-      .circle 'fill', @x, @y, @radius, 100
+      --.setColor @brightness, @brightness, @brightness, @alpha
+      x, y, r = math.floor(@x), math.floor(@y), math.floor(@radius)
+
+      .setColor 255, 255, 255, @alpha
+      .circle 'fill', x, y, r, 100
+
+      .setLineWidth 2
+      .setLineStyle 'rough'
+      .setColor 255, 255, 255, 255
+      .circle 'line', x, y, r - 2, 100
+      .setColor 0, 0, 0, 255
+      .circle 'line', x, y, r, 100
 
   drawDebug: =>
