@@ -1,10 +1,10 @@
 export class Map extends Common
-  new: (filename) =>
+  new: (levelname) =>
     @world = bump.newWorld!
     @player = {}
 
     --load level
-    for line in love.filesystem.lines filename
+    for line in love.filesystem.lines 'level/'..levelname..'.oel'
       if line\find '<rect'
         x = tonumber line\match 'x="(.-)"'
         y = tonumber line\match 'y="(.-)"'
@@ -20,6 +20,9 @@ export class Map extends Common
         y = tonumber line\match 'y="(.-)"'
         @bubble = Bubble @world, x, y
 
+    --"load tiles"
+    @environment = love.graphics.newImage 'level/'..levelname..'.png'
+
   update: (dt) =>
     for item in *@world\getItems!
       item\update dt
@@ -29,9 +32,16 @@ export class Map extends Common
       item\clearSignals!
 
   draw: =>
+    --draw tiles
+    with love.graphics
+      .setColor 5, 251, 255, 255
+      .rectangle 'fill', 0, 0, WIDTH, HEIGHT
+      .setColor 255, 255, 255, 255
+      .draw @environment
+
     --draw all physical objects
     items = @world\getItems!
     table.sort items, (a, b) -> return a.drawDepth < b.drawDepth
     for item in *items
       item\draw!
-      item\drawDebug!
+      --item\drawDebug!
