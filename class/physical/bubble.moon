@@ -50,8 +50,12 @@ export class Bubble extends Physical
 
     --tweens
     @moveSpeed = lume.lerp @moveSpeed, .5, .01
-    @x = lume.lerp @x, @goalX, @moveSpeed
-    @y = lume.lerp @y, @goalY, @moveSpeed
+    if lume.distance(@x, @y, @goalX, @goalY) > 100
+      @x = @goalX
+      @y = @goalY
+    else
+      @x = lume.lerp @x, @goalX, @moveSpeed
+      @y = lume.lerp @y, @goalY, @moveSpeed
     @radius = lume.lerp @radius, @goalRadius, .1
     @alpha = lume.lerp @alpha, 100, .03
     @brightness = lume.lerp @brightness, 0, .01

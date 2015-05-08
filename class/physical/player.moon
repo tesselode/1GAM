@@ -22,6 +22,7 @@ export class Player extends Physical
     @walkAcceleration = 1000
     @horizontalDrag = 500
     @horizontalMaxSpeed = 300
+    @verticalMaxSpeed = 1000
     @baseJumpPower = 450
     @additionalJumpPower = 100
 
@@ -86,8 +87,11 @@ export class Player extends Physical
     else
       @vy += @gravity * dt
 
+    --limit vertical speed
+    @vy = lume.clamp @vy, -@verticalMaxSpeed, @verticalMaxSpeed
+
     --apply movement
-    _, _, cols = @move @vx * dt, @vy * dt
+    x, y, cols = @move @vx * dt, @vy * dt
 
     for col in *cols
       if col.other.__class == Wall or col.other.__class == Player
@@ -99,6 +103,10 @@ export class Player extends Physical
           @vy = 0
           if col.normal.y < 0
             @onGround = true
+
+    --vertical wrapping
+    if y > HEIGHT + 16
+      @world\update self, x, -16
 
     --check for win condition
     if (not @won) and @time >= 60

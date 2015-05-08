@@ -49,7 +49,7 @@ game =
     --load map
     if @map
       @map\clearSignals!
-    @map = Map 'big arena'
+    @map = Map 'arena2'
 
     --start the game
     @signal.emit 'game-countoff'
