@@ -44,7 +44,7 @@ export class Bubble extends Physical
 
       if @enabled
         --give a player more time
-        @following.time += dt * 100
+        @following.time += dt
         --grow over time
         @goalRadius += (@growthSpeed + 5 * @growthSpeed * (@following.time / 60)) * dt
 

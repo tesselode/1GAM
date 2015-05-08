@@ -14,7 +14,7 @@ local type, assert, unpack = type, assert, unpack or table.unpack
 local tostring, tonumber = tostring, tonumber
 local math_floor = math.floor
 local math_ceil = math.ceil
-local math_random = math.random
+local math_random = love.math.random
 local math_cos = math.cos
 local math_atan2 = math.atan2 or math.atan
 local math_sqrt = math.sqrt
@@ -157,7 +157,7 @@ function lume.push(t, ...)
 end
 
 
-function lume.remove(t, x) 
+function lume.remove(t, x)
   local iter = getiter(t)
   for i, v in iter(t) do
     if v == x then
@@ -483,7 +483,7 @@ end
 function lume.combine(...)
   local n = select('#', ...)
   if n == 0 then return noop end
-  if n == 1 then 
+  if n == 1 then
     local fn = select(1, ...)
     if not fn then return noop end
     assert(iscallable(fn), "expected a function or nil")
