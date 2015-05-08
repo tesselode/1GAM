@@ -40,9 +40,10 @@ love.load =  ->
 
   --load fonts
   font =
-    default: love.graphics.newFont 12
-    medium: love.graphics.newFont 24
-    big: love.graphics.newFont 48
+    small: love.graphics.newFont 'font/kenpixel_mini.ttf', 16
+    medium: love.graphics.newFont 'font/kenpixel.ttf', 24
+    big: love.graphics.newFont 'font/kenpixel.ttf', 48
+    kenpixel: love.graphics.newFont 'font/kenpixel.ttf'
 
   --load classes
   require 'class.common'

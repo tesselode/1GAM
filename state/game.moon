@@ -70,10 +70,7 @@ game =
       @map\update @updateInterval
       @hud\update @updateInterval
 
-  keypressed: (key) =>
-    @inputManager\keypressed key
-    if key == 'f1'
-      @startRound!
+  keypressed: (key) => @inputManager\keypressed key
 
   keyreleased: (key) => @inputManager\keyreleased key
 

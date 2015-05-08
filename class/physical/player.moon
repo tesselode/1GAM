@@ -145,7 +145,9 @@ export class Player extends Physical
       if text\find '%.'
         text = text\match '(.*%.%d)'
       .setColor 0, 0, 0, 255
-      .printCentered text, font.default, x, y + 16
+      .printCentered text, font.small, x + 1, y + 17
+      .setColor 255, 255, 255, 255
+      .printCentered text, font.small, x, y + 16
 
   drawDebug: =>
     --draw hitbox
