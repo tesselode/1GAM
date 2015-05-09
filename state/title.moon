@@ -34,8 +34,10 @@ title =
     if @takeInput
       if key == 'up'
         @animatable.menu\previous!
+        sound.menuBlip\play!
       if key == 'down'
         @animatable.menu\next!
+        sound.menuBlip\play!
 
       if key == 'return'
         if @animatable.menu.selected == 1
@@ -43,6 +45,7 @@ title =
           --@tween\to self, 0.5, {blackAlpha: 255}
           --@timer.add 0.5, ->
           --  gamestate.switch game
+          sound.menuSelect\play!
           gamestate.switch mapSelect
         if @animatable.menu.selected == 3
           love.event.quit!

@@ -31,6 +31,9 @@ mapSelect =
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
+    --play a sound
+    sound.voiceSelectMap\play!
+
   update: (dt) =>
     @updateTimer -= dt
     while @updateTimer <= 0
@@ -46,6 +49,7 @@ mapSelect =
   keypressed: (key) =>
     if @takeInput
       if key == 'up' or key == 'down'
+        sound.menuBlip\play!
         if @verticalPosition == 1
           @verticalPosition = 2
         else
@@ -56,8 +60,10 @@ mapSelect =
         with @preview
           if key == 'left'
             .selected -= 1
+            sound.menuBlip\play!
           elseif key == 'right'
             .selected += 1
+            sound.menuBlip\play!
 
           if .selected == 0
             .selected = #@maps
@@ -67,11 +73,13 @@ mapSelect =
         if key == 'return'
           @takeInput = false
           @tween\to self, 0.5, {blackAlpha: 255}
+          sound.menuSelect\play!
           @timer.add 0.5, ->
             gamestate.switch game, @maps[@preview.selected].name
 
       if @verticalPosition == 2
         if key == 'return'
+          sound.menuSelect\play!
           gamestate.switch title
 
   draw: =>
