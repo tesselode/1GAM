@@ -1,6 +1,6 @@
-export menu
+export title
 
-menu =
+title =
   enter: (previous) =>
     @timer = timer.new!
     @tween = flux.group!
