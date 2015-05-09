@@ -34,7 +34,7 @@ game =
         @signal.emit 'match-end', playerNum
         sound.voiceMatchOver\play!
         @timer.add 2, ->
-          gamestate.switch menu
+          gamestate.switch mapSelect
       else
         --go to next round
         @signal.emit 'round-end', playerNum

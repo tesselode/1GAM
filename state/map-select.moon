@@ -1,7 +1,7 @@
 export mapSelect
 
 mapSelect =
-  enter: =>
+  enter: (previous) =>
     --fixed timestep updating
     @updateInterval = 1 / 120
     @updateTimer = @updateInterval
@@ -11,7 +11,11 @@ mapSelect =
 
     @verticalPosition = 1
     @takeInput = true
-    @blackAlpha = 0
+    if previous == game
+      @blackAlpha = 255
+      @tween\to self, 0.5, {blackAlpha: 0}
+    else
+      @blackAlpha = 0
 
     --load maps
     @maps = {}
