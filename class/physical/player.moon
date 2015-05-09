@@ -106,7 +106,7 @@ export class Player extends Physical
 
     --vertical wrapping
     if y > HEIGHT + 16
-      @world\update self, x, -16
+      @world\update self, x, -8
 
     --check for win condition
     if (not @won) and @time >= 60
