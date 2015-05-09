@@ -10,6 +10,7 @@ export class Player extends Physical
     @vx = 0
     @vy = 0
 
+    @currentDrag = 0
     @onGround = false
     @onGroundPrevious = false
     @jumping = false
@@ -20,7 +21,7 @@ export class Player extends Physical
     @gravity = 1500
     @quickFall = 3000
     @walkAcceleration = 1000
-    @horizontalDrag = 500
+    @horizontalDrag = 3000
     @horizontalMaxSpeed = 300
     @verticalMaxSpeed = 1000
     @baseJumpPower = 450
@@ -49,6 +50,12 @@ export class Player extends Physical
         @endJump!
 
   walk: (dt, v) =>
+    --calculate drag
+    if v == 0 or (@vx ~= 0 and lume.sign(@vx) ~= lume.sign(v))
+      @currentDrag = @horizontalDrag
+    else
+      @currentDrag = 0
+
     @vx += v * @walkAcceleration * dt
 
   jump: =>
@@ -70,11 +77,11 @@ export class Player extends Physical
 
     --horizontal drag
     if @vx < 0
-      @vx += @horizontalDrag * dt
+      @vx += @currentDrag * dt
       if @vx > 0
         @vx = 0
     if @vx > 0
-      @vx -= @horizontalDrag * dt
+      @vx -= @currentDrag * dt
       if @vx < 0
         @vx = 0
 

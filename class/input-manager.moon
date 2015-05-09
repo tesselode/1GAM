@@ -23,6 +23,8 @@ export class InputManager
             game.signal.emit 'player-walk', i, dt, -1
           elseif .isDown v.right
             game.signal.emit 'player-walk', i, dt, 1
+          else
+            game.signal.emit 'player-walk', i, dt, 0
 
   keypressed: (key) =>
     if @enabled
