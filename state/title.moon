@@ -21,7 +21,7 @@ title =
     @animatable.menu\addItem 'Options', font.medium, 0, HEIGHT * .1
     @animatable.menu\addItem 'Quit', font.medium, 0, HEIGHT * .2
 
-    @canvas = love.graphics.newCanvas!
+    @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   update: (dt) =>
     @timer.update dt
