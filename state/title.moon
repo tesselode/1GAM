@@ -39,10 +39,11 @@ title =
 
       if key == 'return'
         if @animatable.menu.selected == 1
-          @takeInput = false
-          @tween\to self, 0.5, {blackAlpha: 255}
-          @timer.add 0.5, ->
-            gamestate.switch game
+          --@takeInput = false
+          --@tween\to self, 0.5, {blackAlpha: 255}
+          --@timer.add 0.5, ->
+          --  gamestate.switch game
+          gamestate.switch mapSelect
         if @animatable.menu.selected == 3
           love.event.quit!
 

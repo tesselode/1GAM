@@ -1,7 +1,9 @@
 export game
 
 game =
-  enter: =>
+  enter: (previous, mapName) =>
+    @mapName = mapName
+
     --updating
     @updateInterval = 1 / 120
     @updateTimer = @updateInterval
@@ -43,13 +45,13 @@ game =
 
     @nextRound!
 
-  nextRound: =>
+  nextRound: (mapName) =>
     @rounds += 1
 
     --load map
     if @map
       @map\clearSignals!
-    @map = Map 'arena2'
+    @map = Map @mapName
 
     --start the game
     @signal.emit 'game-countoff'
