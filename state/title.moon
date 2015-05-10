@@ -20,10 +20,13 @@ title =
   keypressed: (key) =>
     if key == 'up'
       @menu\previous!
+      sound.menuBlip\play!
     if key == 'down'
       @menu\next!
+      sound.menuBlip\play!
     if key == 'return'
       @menu\select!
+      sound.menuSelect\play!
 
   draw: =>
     @canvas\clear 0, 0, 0, 255
