@@ -32,6 +32,10 @@ export class Menu extends Common
   select: =>
     @option[@current]\select!
 
+  update: (dt) =>
+    for k, v in pairs @option
+      v\update dt
+
   draw: =>
     for k, v in pairs @option
       v\draw!
@@ -46,6 +50,9 @@ export class MenuOption extends Common
   unhighlight: =>
 
   select: =>
+
+  update: (dt) =>
+    @drawable\update dt
 
   draw: =>
     @drawable\draw!
