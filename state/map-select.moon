@@ -1,7 +1,16 @@
 export mapSelect
 
 mapSelect =
-  enter: =>
+  enter: (previous) =>
+    @timer = timer.new!
+    @tween = flux.group!
+
+    if previous == game
+      @blackAlpha = 255
+      @tween\to self, .5, {blackAlpha: 0}
+    else
+      @blackAlpha = 0
+
     @menu = Menu!
     @menu\addOption MapSelector!
     @menu\addOption MenuOptionText 'Back', font.medium, WIDTH / 2, HEIGHT * .925, =>
@@ -10,6 +19,9 @@ mapSelect =
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
   update: (dt) =>
+    @timer.update dt
+    @tween\update dt
+
     @menu\update dt
 
   keypressed: (key) =>
@@ -23,11 +35,18 @@ mapSelect =
       @menu\secondaryNext!
     if key == 'return'
       @menu\select!
+      if @menu.current == 1
+        @tween\to self, .5, {blackAlpha: 255}
 
   draw: =>
     @canvas\clear 50, 50, 50, 255
     @canvas\renderTo ->
       @menu\draw!
+
+      --fade out effect
+      with love.graphics
+        .setColor 0, 0, 0, @blackAlpha
+        .rectangle 'fill', 0, 0, WIDTH, HEIGHT
 
     with love.graphics
       .setColor 255, 255, 255, 255

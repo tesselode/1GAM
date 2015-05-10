@@ -1,5 +1,7 @@
 export class MapSelector extends MenuOption
-  new: =>
+  new: (@select) =>
+    @timer = timer.new!
+
     --load map previews
     @maps = {}
     for file in *love.filesystem.getDirectoryItems 'level'
@@ -35,9 +37,12 @@ export class MapSelector extends MenuOption
       @selected = 1
 
   select: =>
-    gamestate.switch game, @maps[@selected].name
+    @timer.add 0.5, ->
+      gamestate.switch game, @maps[@selected].name
 
   update: (dt) =>
+    @timer.update dt
+
     @x = WIDTH * @scale * (@selected - 1)
     @goalX = lume.lerp @goalX, @x, .15
 
