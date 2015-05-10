@@ -4,7 +4,7 @@ mapSelect =
   enter: =>
     @menu = Menu!
     @menu\addOption MapSelector!
-    @menu\addOption MenuOptionText 'Back', font.medium, WIDTH / 2, HEIGHT * .85, =>
+    @menu\addOption MenuOptionText 'Back', font.medium, WIDTH / 2, HEIGHT * .925, =>
       gamestate.switch title
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
@@ -13,13 +13,13 @@ mapSelect =
     @menu\update dt
 
   keypressed: (key) =>
-    if key == 'up'
+    if key == 'up' or key == 'w'
       @menu\previous!
-    if key == 'down'
+    if key == 'down' or key == 's'
       @menu\next!
-    if key == 'left'
+    if key == 'left' or key == 'a'
       @menu\secondaryPrevious!
-    if key == 'right'
+    if key == 'right' or key == 'd'
       @menu\secondaryNext!
     if key == 'return'
       @menu\select!

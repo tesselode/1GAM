@@ -8,7 +8,7 @@ export class MapSelector extends MenuOption
         print file, name
         table.insert @maps, {name: name, image: love.graphics.newImage 'level/'..name..'.png'}
 
-    @scale = .5
+    @scale = .75
     @selected = 1
     @x = 0
     @goalX = 0
