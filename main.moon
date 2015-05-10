@@ -69,7 +69,7 @@ love.load =  ->
 
   --initialize gamestates
   with gamestate
-    .switch mapSelect
+    .switch title
     .registerEvents!
 
 love.keypressed = (key) ->

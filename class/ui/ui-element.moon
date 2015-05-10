@@ -1,4 +1,4 @@
-export class UIText extends Common
+export class UIText
   new: (@text, @font, @x, @y) =>
     @color = {255, 255, 255, 255}
     @align = 'center'
@@ -7,6 +7,8 @@ export class UIText extends Common
     @shadowColor = {0, 0, 0, 255}
     @sx = 1
     @sy = 1
+
+  update: =>
 
   draw: =>
     with love.graphics

@@ -7,16 +7,12 @@ title =
     --menu definition
     @menu = Menu!
 
-    @menu\addOption MenuOptionText 'Play!', font.medium, WIDTH / 2, HEIGHT / 2
-    with @menu.option[#@menu.option]
-      .select = =>
-        gamestate.switch game, 'arena1'
+    @menu\addOption MenuOptionText 'Play!', font.medium, WIDTH / 2, HEIGHT / 2, =>
+        gamestate.switch mapSelect
 
     @menu\addOption MenuOptionText 'Options', font.medium, WIDTH / 2, HEIGHT * .6
 
-    @menu\addOption MenuOptionText 'Quit', font.medium, WIDTH / 2, HEIGHT * .7
-    with @menu.option[#@menu.option]
-      .select = =>
+    @menu\addOption MenuOptionText 'Quit', font.medium, WIDTH / 2, HEIGHT * .7, =>
         love.event.quit!
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT

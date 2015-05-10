@@ -1,4 +1,4 @@
-export class Menu extends Common
+export class Menu
   new: =>
     @option = {}
     @current = 1
@@ -46,8 +46,8 @@ export class Menu extends Common
     for k, v in pairs @option
       v\draw!
 
-export class MenuOption extends Common
-  new: (@drawable) =>
+export class MenuOption
+  new: (@drawable, @select) =>
 
   startHighlighted: =>
 
@@ -59,8 +59,6 @@ export class MenuOption extends Common
 
   previous: =>
 
-  select: =>
-
   update: (dt) =>
     @drawable\update dt
 
@@ -68,7 +66,7 @@ export class MenuOption extends Common
     @drawable\draw!
 
 export class MenuOptionText extends MenuOption
-  new: (text, font, x, y) =>
+  new: (text, font, x, y, @select) =>
     @drawable = UIText text, font, x, y
 
     @highlightColor = {255, 255, 255, 255}
