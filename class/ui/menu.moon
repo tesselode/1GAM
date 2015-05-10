@@ -32,6 +32,10 @@ export class Menu extends Common
   select: =>
     @option[@current]\select!
 
+  customEvent: (eventName) =>
+    for k, v in pairs @option
+      v\customEvent eventName
+
   update: (dt) =>
     for k, v in pairs @option
       v\update dt
@@ -50,6 +54,8 @@ export class MenuOption extends Common
   unhighlight: =>
 
   select: =>
+
+  customEvent: (eventName) =>
 
   update: (dt) =>
     @drawable\update dt

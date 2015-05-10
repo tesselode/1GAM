@@ -55,6 +55,7 @@ love.load =  ->
   require 'class.cosmetic.sound'
   require 'class.ui.ui-element'
   require 'class.ui.menu'
+  require 'class.ui.menu-custom'
 
   --load sounds
   sound = {}
@@ -64,10 +65,11 @@ love.load =  ->
   --load states
   require 'state.game'
   require 'state.title'
+  require 'state.map-select'
 
   --initialize gamestates
   with gamestate
-    .switch title
+    .switch mapSelect
     .registerEvents!
 
 love.keypressed = (key) ->
