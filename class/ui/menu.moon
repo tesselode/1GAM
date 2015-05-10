@@ -29,12 +29,14 @@ export class Menu extends Common
 
     @option[@current]\highlight!
 
+  secondaryNext: =>
+    @option[@current]\next!
+
+  secondaryPrevious: =>
+    @option[@current]\previous!
+
   select: =>
     @option[@current]\select!
-
-  customEvent: (eventName) =>
-    for k, v in pairs @option
-      v\customEvent eventName
 
   update: (dt) =>
     for k, v in pairs @option
@@ -53,9 +55,11 @@ export class MenuOption extends Common
 
   unhighlight: =>
 
-  select: =>
+  next: =>
 
-  customEvent: (eventName) =>
+  previous: =>
+
+  select: =>
 
   update: (dt) =>
     @drawable\update dt
