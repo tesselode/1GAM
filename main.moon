@@ -52,8 +52,6 @@ love.load =  ->
   require 'class.physical.bubble'
   require 'class.map'
   require 'class.input-manager'
-  require 'class.cosmetic.animatable'
-  require 'class.cosmetic.hud'
   require 'class.cosmetic.sound'
 
   --load sounds
@@ -63,12 +61,10 @@ love.load =  ->
 
   --load states
   require 'state.game'
-  require 'state.title'
-  require 'state.map-select'
 
   --initialize gamestates
   with gamestate
-    .switch title
+    .switch game, 'arena1'
     .registerEvents!
 
 love.keypressed = (key) ->
