@@ -20,8 +20,8 @@ export class Player extends Physical
     --tweak these!
     @gravity = 1500
     @quickFall = 3000
-    @walkAcceleration = 1000
-    @horizontalDrag = 3000
+    @walkAcceleration = 800
+    @horizontalDrag = 2000
     @horizontalMaxSpeed = 300
     @verticalMaxSpeed = 1000
     @baseJumpPower = 450
