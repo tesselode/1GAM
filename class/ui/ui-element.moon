@@ -1,5 +1,20 @@
-export class UIText
+export class UIGroup extends Common
+  new: (@x, @y) =>
+    super!
+
+    @item = {}
+
+  addText: (text) =>
+    table.insert @item, text
+
+  draw: =>
+    for k, v in pairs @item
+      v\draw @x, @y
+
+export class UIText extends Common
   new: (@text, @font, @x, @y) =>
+    super!
+
     @color = {255, 255, 255, 255}
     @align = 'center'
     @shadow = true
@@ -8,9 +23,10 @@ export class UIText
     @sx = 1
     @sy = 1
 
-  update: =>
+  draw: (l, t) =>
+    l = l or 0
+    t = t or 0
 
-  draw: =>
     with love.graphics
       .setFont @font
 
@@ -23,8 +39,8 @@ export class UIText
       --draw shadow
       if @shadow
         .setColor @shadowColor
-        .print @text, @x + @shadowDistance, @y + @shadowDistance, 0, @sx, @sy, ox, oy
+        .print @text, @x + @shadowDistance + l, @y + @shadowDistance + t, 0, @sx, @sy, ox, oy
 
       --draw text
       .setColor @color
-      .print @text, @x, @y, 0, @sx, @sy, ox, oy
+      .print @text, @x + l, @y + t, 0, @sx, @sy, ox, oy

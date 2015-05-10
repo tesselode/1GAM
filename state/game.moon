@@ -12,7 +12,7 @@ game =
     @signal = signal.new!
     @timer = timer.new!
     @inputManager = InputManager!
-    --@hud = Hud!
+    @hud = Hud!
 
     --gameflow
     @rounds = 0
@@ -70,7 +70,7 @@ game =
       @timer.update @updateInterval
       @inputManager\update @updateInterval
       @map\update @updateInterval
-      --@hud\update @updateInterval
+      @hud\update @updateInterval
 
   keypressed: (key) => @inputManager\keypressed key
 
@@ -81,7 +81,7 @@ game =
     @canvas\clear 0, 0, 0, 255
     @canvas\renderTo ->
       @map\draw!
-      --@hud\draw!
+      @hud\draw!
 
     --draw canvas
     with love.graphics

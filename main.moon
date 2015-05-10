@@ -52,6 +52,7 @@ love.load =  ->
   require 'class.physical.bubble'
   require 'class.map'
   require 'class.input-manager'
+  require 'class.cosmetic.hud'
   require 'class.cosmetic.sound'
   require 'class.ui.ui-element'
   require 'class.ui.menu'
