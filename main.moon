@@ -54,6 +54,7 @@ love.load =  ->
   require 'class.input-manager'
   require 'class.cosmetic.sound'
   require 'class.ui.ui-element'
+  require 'class.ui.menu'
 
   --load sounds
   sound = {}
