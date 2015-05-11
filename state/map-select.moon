@@ -10,6 +10,7 @@ mapSelect =
       @tween\to self, .5, {blackAlpha: 0}
     else
       @blackAlpha = 0
+    @takeInput = true
 
     @menu = Menu!
     @menu\addOption MapSelector!
@@ -27,25 +28,31 @@ mapSelect =
     @menu\update dt
 
   keypressed: (key) =>
-    if key == 'up' or key == 'w'
-      @menu\previous!
-      sound.menuBlip\play!
-    if key == 'down' or key == 's'
-      @menu\next!
-      sound.menuBlip\play!
-    if key == 'left' or key == 'a'
-      @menu\secondaryPrevious!
-      if @menu.current == 1
+    if @takeInput
+      if key == 'up' or key == 'w'
+        @menu\previous!
         sound.menuBlip\play!
-    if key == 'right' or key == 'd'
-      @menu\secondaryNext!
-      if @menu.current == 1
+
+      if key == 'down' or key == 's'
+        @menu\next!
         sound.menuBlip\play!
-    if key == 'return'
-      sound.menuSelect\play!
-      @menu\select!
-      if @menu.current == 1
-        @tween\to self, .5, {blackAlpha: 255}
+
+      if key == 'left' or key == 'a'
+        @menu\secondaryPrevious!
+        if @menu.current == 1
+          sound.menuBlip\play!
+
+      if key == 'right' or key == 'd'
+        @menu\secondaryNext!
+        if @menu.current == 1
+          sound.menuBlip\play!
+          
+      if key == 'return'
+        sound.menuSelect\play!
+        @menu\select!
+        if @menu.current == 1
+          @takeInput = false
+          @tween\to self, .5, {blackAlpha: 255}
 
   draw: =>
     @canvas\clear 50, 50, 50, 255
