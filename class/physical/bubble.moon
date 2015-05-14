@@ -28,7 +28,10 @@ export class Bubble extends Physical
           otherX, otherY = item\getCenter!
           if lume.distance(@x, @y, otherX, otherY) < @radius
             --start following the player
+            if @following
+              @following.hasBubble = false
             @following = item
+            @following.hasBubble = true
             @moveSpeed = .1
             @goalRadius = 20
             @alpha = 255
@@ -44,7 +47,7 @@ export class Bubble extends Physical
 
       if @enabled
         --give a player more time
-        @following.time += dt * 100
+        @following.time += dt
         --grow over time
         @goalRadius += (@growthSpeed + 5 * @growthSpeed * (@following.time / 60)) * dt
 

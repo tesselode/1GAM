@@ -16,6 +16,8 @@ export class Player extends Physical
     @jumping = false
     @time = 0
     @won = false
+    @hasBubble = false
+    @timeScale = 1
 
     --tweak these!
     @gravity = 1500
@@ -26,6 +28,7 @@ export class Player extends Physical
     @verticalMaxSpeed = 1000
     @baseJumpPower = 450
     @additionalJumpPower = 100
+    @bubbleSpeedMultiplier = 0.9
 
     --animation stuff
     @animation =
@@ -71,17 +74,23 @@ export class Player extends Physical
   update: (dt) =>
     super dt
 
+    --adjust time scale depending on Bubble
+    if @hasBubble
+      @timeScale = @bubbleSpeedMultiplier
+    else
+      @timeScale = 1
+
     --reset on ground status
     @onGroundPrevious = @onGround
     @onGround = false
 
     --horizontal drag
     if @vx < 0
-      @vx += @currentDrag * dt
+      @vx += @currentDrag * dt * @timeScale
       if @vx > 0
         @vx = 0
     if @vx > 0
-      @vx -= @currentDrag * dt
+      @vx -= @currentDrag * dt * @timeScale
       if @vx < 0
         @vx = 0
 
@@ -90,15 +99,15 @@ export class Player extends Physical
 
     --gravity
     if @vy < 0 and @jumping == false
-      @vy += (@gravity + @quickFall) * dt
+      @vy += (@gravity + @quickFall) * dt * @timeScale
     else
-      @vy += @gravity * dt
+      @vy += @gravity * dt * @timeScale
 
     --limit vertical speed
     @vy = lume.clamp @vy, -@verticalMaxSpeed, @verticalMaxSpeed
 
     --apply movement
-    x, y, cols = @move @vx * dt, @vy * dt
+    x, y, cols = @move @vx * dt * @timeScale, @vy * dt * @timeScale
 
     for col in *cols
       if col.other.__class == Wall or col.other.__class == Player
@@ -132,9 +141,9 @@ export class Player extends Physical
       @animation.jump\gotoFrame 3
 
     --update animations
-    @animation.walk\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
-    @animation.run\update dt * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
-    @animation.jump\update dt
+    @animation.walk\update dt * @timeScale * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
+    @animation.run\update dt * @timeScale * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
+    @animation.jump\update dt * @timeScale
 
   clearSignals: =>
     game.signal.remove 'player-walk', @walkRegistry
