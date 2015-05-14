@@ -61,7 +61,10 @@ export class MapSelector extends MenuOption
 
     --draw map preview
     with love.graphics
+      --draw border
       .setColor @color
       .setLineWidth 4
       .rectangle 'line', cx - pw / 2, cy - ph / 2, pw, ph
+
+      --draw preview
       .draw @canvas, cx - pw / 2, cy - ph / 2

@@ -12,6 +12,7 @@ mapSelect =
       @blackAlpha = 0
     @takeInput = true
 
+    @text = UIText 'Select map', font.medium, WIDTH / 2, HEIGHT * .05
     @menu = Menu!
     @menu\addOption MapSelector!
     @menu\addOption MenuOptionText 'Back', font.medium, WIDTH / 2, HEIGHT * .925, =>
@@ -46,7 +47,7 @@ mapSelect =
         @menu\secondaryNext!
         if @menu.current == 1
           sound.menuBlip\play!
-          
+
       if key == 'return'
         sound.menuSelect\play!
         @menu\select!
@@ -57,6 +58,7 @@ mapSelect =
   draw: =>
     @canvas\clear 50, 50, 50, 255
     @canvas\renderTo ->
+      @text\draw!
       @menu\draw!
 
       --fade out effect
