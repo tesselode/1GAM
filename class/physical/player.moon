@@ -43,6 +43,20 @@ export class Player extends Physical
     @facingDirection = 1
     @drawDepth = 100
 
+    --particle stuff
+    @particle =
+      dive: love.graphics.newParticleSystem image.particle, 100
+
+    with @particle.dive
+      \setEmissionRate 200
+      \setParticleLifetime 0.2
+      \setSpeed 100
+      \setLinearAcceleration 0, -2500
+      \setSpread math.pi * 2
+      \setSizes 2, 0
+      \setColors 255, 255, 255, 255, 0, 0, 255, 255, 0, 0, 255, 0
+      \stop!
+
     --sound stuff
     @walkSoundTimer = 1
 
@@ -91,10 +105,11 @@ export class Player extends Physical
   dive: =>
     @diving = true
     @vy = @diveMaxSpeed * .3
+    --@particle.dive\start!
 
   endDive: =>
     @diving = false
-    --@vy = @verticalMaxSpeed
+    --@particle.dive\stop!
 
   update: (dt) =>
     super dt
@@ -181,6 +196,21 @@ export class Player extends Physical
     @animation.run\update dt * @timeScale * (math.abs(@vx) / @horizontalMaxSpeed) ^ .3
     @animation.jump\update dt * @timeScale
 
+    --update particle systems
+    with @particle.dive
+      --set position
+      _, _, w, h = @world\getRect self
+      x, y = @getCenter!
+      \setPosition x, y + h / 2
+
+      --activate/deactivate
+      if @onGround or not @diving
+        \stop!
+      else
+        \start!
+
+      \update dt
+
   clearSignals: =>
     game.signal.remove 'player-walk', @walkRegistry
     game.signal.remove 'player-jump', @jumpRegistry
@@ -199,6 +229,10 @@ export class Player extends Physical
       else
         --draw jumping animation
         @animation.jump\draw image.characters, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
+
+      --draw particles
+      .setColor 255, 255, 255, 255
+      .draw @particle.dive
 
       --draw timer below player
       text = tostring @time
