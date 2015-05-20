@@ -5,10 +5,12 @@ export class InputManager
       left: 'left'
       right: 'right'
       jump: 'up'
+      dive: 'down'
     @controls[2] =
       left: 'a'
       right: 'd'
       jump: 'w'
+      dive: 's'
 
     @enabled = false
     game.signal.register 'game-countoff', -> @enabled = false
@@ -32,6 +34,8 @@ export class InputManager
       for i, v in ipairs @controls
         if key == v.jump
           game.signal.emit 'player-jump', i
+        elseif key == v.dive
+          game.signal.emit 'player-dive', i
 
   keyreleased: (key) =>
     if @enabled
@@ -39,3 +43,5 @@ export class InputManager
       for i, v in ipairs @controls
         if key == v.jump
           game.signal.emit 'player-end-jump', i
+        elseif key == v.dive
+          game.signal.emit 'player-end-dive', i

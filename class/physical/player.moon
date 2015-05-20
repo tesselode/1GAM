@@ -15,6 +15,7 @@ export class Player extends Physical
     @onGroundPrevious = false
     @canDoubleJump = true
     @jumping = false
+    @diving = false
     @time = 0
     @won = false
     @hasBubble = false
@@ -23,10 +24,11 @@ export class Player extends Physical
     --tweak these!
     @gravity = 1500
     @quickFall = 3000
+    @diveSpeed = 900
     @walkAcceleration = 800
     @horizontalDrag = 2000
     @horizontalMaxSpeed = 300
-    @verticalMaxSpeed = 1000
+    @verticalMaxSpeed = 600
     @baseJumpPower = 450
     @doubleJumpPower = 350
     @additionalJumpPower = 100
@@ -53,6 +55,12 @@ export class Player extends Physical
     @endJumpRegistry = game.signal.register 'player-end-jump', (playerNum) ->
       if playerNum == @playerNum
         @endJump!
+    @diveRegistry = game.signal.register 'player-dive', (playerNum) ->
+      if playerNum == @playerNum
+        @dive!
+    @endDiveRegistry = game.signal.register 'player-end-dive', (playerNum) ->
+      if playerNum == @playerNum
+        @endDive!
 
   walk: (dt, v) =>
     --calculate drag
@@ -78,6 +86,14 @@ export class Player extends Physical
 
   endJump: =>
     @jumping = false
+
+  dive: =>
+    @diving = true
+    @vy = @diveSpeed
+
+  endDive: =>
+    @diving = false
+    @vy = @verticalMaxSpeed
 
   update: (dt) =>
     super dt
@@ -106,13 +122,15 @@ export class Player extends Physical
     @vx = lume.clamp @vx, -@horizontalMaxSpeed, @horizontalMaxSpeed
 
     --gravity
-    if @vy < 0 and @jumping == false
-      @vy += (@gravity + @quickFall) * dt * @timeScale
-    else
-      @vy += @gravity * dt * @timeScale
+    if not @diving
+      if @vy < 0 and @jumping == false
+        @vy += (@gravity + @quickFall) * dt * @timeScale
+      else
+        @vy += @gravity * dt * @timeScale
 
     --limit vertical speed
-    @vy = lume.clamp @vy, -@verticalMaxSpeed, @verticalMaxSpeed
+    if not @diving
+      @vy = lume.clamp @vy, -@verticalMaxSpeed, @verticalMaxSpeed
 
     --apply movement
     x, y, cols = @move @vx * dt * @timeScale, @vy * dt * @timeScale
