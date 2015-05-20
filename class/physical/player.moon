@@ -182,8 +182,11 @@ export class Player extends Physical
             @canDoubleJump = true
 
     --vertical wrapping
-    if y > HEIGHT + 16
-      @world\update self, x, -8
+    x, y, w, h = @world\getRect self
+    if y > HEIGHT + h
+      @world\update self, x, -h
+    elseif y < -h
+      @world\update self, x, HEIGHT + h
 
     --check for win condition
     if (not @won) and @time >= 60
