@@ -23,12 +23,13 @@ export class Player extends Physical
 
     --tweak these!
     @gravity = 1500
+    @verticalMaxSpeed = 600
+    @diveGravity = 5000
+    @diveMaxSpeed = 800
     @quickFall = 3000
-    @diveSpeed = 900
     @walkAcceleration = 800
     @horizontalDrag = 2000
     @horizontalMaxSpeed = 300
-    @verticalMaxSpeed = 600
     @baseJumpPower = 450
     @doubleJumpPower = 350
     @additionalJumpPower = 100
@@ -89,11 +90,11 @@ export class Player extends Physical
 
   dive: =>
     @diving = true
-    @vy = @diveSpeed
+    @vy = @diveMaxSpeed * .3
 
   endDive: =>
     @diving = false
-    @vy = @verticalMaxSpeed
+    --@vy = @verticalMaxSpeed
 
   update: (dt) =>
     super dt
@@ -122,15 +123,23 @@ export class Player extends Physical
     @vx = lume.clamp @vx, -@horizontalMaxSpeed, @horizontalMaxSpeed
 
     --gravity
-    if not @diving
-      if @vy < 0 and @jumping == false
-        @vy += (@gravity + @quickFall) * dt * @timeScale
-      else
-        @vy += @gravity * dt * @timeScale
+    local g
+    if @diving
+      g = @diveGravity
+    else
+      g = @gravity
+    if @vy < 0 and @jumping == false
+      @vy += (g + @quickFall) * dt * @timeScale
+    else
+      @vy += g * dt * @timeScale
 
     --limit vertical speed
-    if not @diving
-      @vy = lume.clamp @vy, -@verticalMaxSpeed, @verticalMaxSpeed
+    local max
+    if @diving
+      max = @diveMaxSpeed
+    else
+      max = @verticalMaxSpeed
+    @vy = lume.clamp @vy, -max, max
 
     --apply movement
     x, y, cols = @move @vx * dt * @timeScale, @vy * dt * @timeScale

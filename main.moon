@@ -20,6 +20,7 @@ love.load =  ->
   --load images
   image = {}
   image.characters = love.graphics.newImage 'image/characters.png'
+  image.particle = love.graphics.newImage 'image/particle.png'
 
   --load animations
   grid =
