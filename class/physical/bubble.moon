@@ -51,7 +51,7 @@ export class Bubble extends Physical
 
       if @enabled
         --give a player more time
-        @following.time += dt
+        @following.time += dt * 4
         --grow over time
         @goalRadius += (@growthSpeed + 5 * @growthSpeed * (@following.time / 60)) * dt
 
@@ -72,7 +72,7 @@ export class Bubble extends Physical
       --.setColor @brightness, @brightness, @brightness, @alpha
       x, y, r = math.floor(@x), math.floor(@y), math.floor(@radius)
 
-      .setColor 255, 255, 255, @alpha
+      .setColor 100, 100, 255, @alpha
       .circle 'fill', x, y, r, 100
 
       .setLineWidth 2

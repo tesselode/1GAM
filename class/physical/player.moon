@@ -63,7 +63,7 @@ export class Player extends Physical
       \setParticleLifetime 1
       \setSpeed 50
       \setSpread math.pi * 2
-      \setColors 255, 255, 255, 255, 255, 255, 255, 0
+      \setColors 100, 100, 255, 255, 100, 100, 255, 0
       \stop!
 
     --sound stuff
