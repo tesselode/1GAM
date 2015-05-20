@@ -13,6 +13,7 @@ export class Player extends Physical
     @currentDrag = 0
     @onGround = false
     @onGroundPrevious = false
+    @canDoubleJump = true
     @jumping = false
     @time = 0
     @won = false
@@ -27,8 +28,9 @@ export class Player extends Physical
     @horizontalMaxSpeed = 300
     @verticalMaxSpeed = 1000
     @baseJumpPower = 450
+    @doubleJumpPower = 350
     @additionalJumpPower = 100
-    @bubbleSpeedMultiplier = 0.9
+    @bubbleSpeedMultiplier = 1
 
     --animation stuff
     @animation =
@@ -67,6 +69,12 @@ export class Player extends Physical
       @jumping = true
       @animation.jump\gotoFrame 2
       sound.playerJump\play!
+    elseif @canDoubleJump
+      @vy = -@doubleJumpPower - @additionalJumpPower * (math.abs(@vx) / @horizontalMaxSpeed)
+      @canDoubleJump = false
+      @jumping = true
+      @animation.jump\gotoFrame 2
+      sound.playerDoubleJump\play!
 
   endJump: =>
     @jumping = false
@@ -119,6 +127,7 @@ export class Player extends Physical
           @vy = 0
           if col.normal.y < 0
             @onGround = true
+            @canDoubleJump = true
 
     --vertical wrapping
     if y > HEIGHT + 16
