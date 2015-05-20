@@ -30,8 +30,12 @@ export class Bubble extends Physical
             --start following the player
             if @following
               @following.hasBubble = false
+              @following.particle.bubble\stop!
             @following = item
             @following.hasBubble = true
+            @following.particle.bubble\start!
+
+            --other stuff
             @moveSpeed = .1
             @goalRadius = 20
             @alpha = 255

@@ -46,6 +46,7 @@ export class Player extends Physical
     --particle stuff
     @particle =
       dive: love.graphics.newParticleSystem image.particle, 100
+      bubble: love.graphics.newParticleSystem image.particle, 100
 
     with @particle.dive
       \setEmissionRate 200
@@ -55,6 +56,14 @@ export class Player extends Physical
       \setSpread math.pi * 2
       \setSizes 2, 0
       \setColors 255, 255, 255, 255, 0, 0, 255, 255, 0, 0, 255, 0
+      \stop!
+
+    with @particle.bubble
+      \setEmissionRate 10
+      \setParticleLifetime 1
+      \setSpeed 50
+      \setSpread math.pi * 2
+      \setColors 255, 255, 255, 255, 255, 255, 255, 0
       \stop!
 
     --sound stuff
@@ -93,7 +102,8 @@ export class Player extends Physical
       @animation.jump\gotoFrame 2
       sound.playerJump\play!
     elseif @canDoubleJump
-      @vy = -@doubleJumpPower - @additionalJumpPower * (math.abs(@vx) / @horizontalMaxSpeed)
+      @vy = 0 if @vy > 0
+      @vy -= @doubleJumpPower + @additionalJumpPower * (math.abs(@vx) / @horizontalMaxSpeed)
       @canDoubleJump = false
       @jumping = true
       @animation.jump\gotoFrame 2
@@ -211,6 +221,10 @@ export class Player extends Physical
 
       \update dt
 
+    with @particle.bubble
+      \setPosition @getCenter!
+      \update dt
+
   clearSignals: =>
     game.signal.remove 'player-walk', @walkRegistry
     game.signal.remove 'player-jump', @jumpRegistry
@@ -219,6 +233,10 @@ export class Player extends Physical
   draw: =>
     x, y = @getCenter!
     with love.graphics
+      .setColor 255, 255, 255, 255
+      .draw @particle.bubble
+
+      --draw animations
       .setColor 255, 255, 255, 255
       if @onGround
         --draw walking animation
@@ -230,7 +248,7 @@ export class Player extends Physical
         --draw jumping animation
         @animation.jump\draw image.characters, x, y - 7, 0, 1 * @facingDirection, 1, 16, 16
 
-      --draw particles
+      --draw dive particles
       .setColor 255, 255, 255, 255
       .draw @particle.dive
 
