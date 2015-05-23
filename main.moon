@@ -7,6 +7,18 @@ love.load =  ->
   WIDTH = 768
   HEIGHT = 432
 
+  --options
+  option =
+    scale: 1
+    fullscreen: false
+
+  --apply window options
+  if option.fullscreen
+    width, height = love.window.getDesktopDimensions!
+    love.window.setMode width, height, {fullscreen: true}
+  else
+    love.window.setMode WIDTH * option.scale, HEIGHT * option.scale, {fullscreen: false}
+
   --load libraries
   gamestate = require 'lib.gamestate'
   timer = require 'lib.timer'
@@ -66,6 +78,7 @@ love.load =  ->
 
   --load states
   require 'state.title'
+  require 'state.options'
   require 'state.map-select'
   require 'state.game'
   require 'state.pause'

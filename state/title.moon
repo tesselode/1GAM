@@ -8,12 +8,13 @@ title =
     @menu = Menu!
 
     @menu\addOption MenuOptionText 'Play!', font.medium, WIDTH / 2, HEIGHT / 2, =>
-        gamestate.switch mapSelect
+      gamestate.switch mapSelect
 
-    @menu\addOption MenuOptionText 'Options', font.medium, WIDTH / 2, HEIGHT * .6
+    @menu\addOption MenuOptionText 'Options', font.medium, WIDTH / 2, HEIGHT * .6, =>
+      gamestate.switch options
 
     @menu\addOption MenuOptionText 'Quit', font.medium, WIDTH / 2, HEIGHT * .7, =>
-        love.event.quit!
+      love.event.quit!
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
 
