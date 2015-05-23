@@ -14,7 +14,7 @@ export class Map extends Common
       elseif line\find '<Player'
         x = tonumber line\match 'x="(.-)"'
         y = tonumber line\match 'y="(.-)"'
-        table.insert @player, Player @world, x, y, lume.randomchoice({'guy1', 'guy2', 'guy3'}), #@player + 1
+        table.insert @player, Player @world, x, y, #@player + 1
       elseif line\find '<Bubble'
         x = tonumber line\match 'x="(.-)"'
         y = tonumber line\match 'y="(.-)"'

@@ -1,5 +1,5 @@
 export class Player extends Physical
-  new: (world, x, y, character, @playerNum) =>
+  new: (world, x, y, @playerNum) =>
     super world, x, y, 16, 16
 
     @filter = (other) =>
@@ -36,6 +36,8 @@ export class Player extends Physical
     @bubbleSpeedMultiplier = 1
 
     --animation stuff
+    character = 'guy3' if @playerNum == 1
+    character = 'guy2' if @playerNum == 2
     @animation =
       walk: animation[character].walk\clone!
       run: animation[character].run\clone!
