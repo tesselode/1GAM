@@ -68,6 +68,22 @@ export class Player extends Physical
       \setColors 100, 100, 255, 255, 100, 100, 255, 0
       \stop!
 
+    --ui stuff
+    x, y = @getCenter!
+    @playerLabel = UIText 'P'..@playerNum, font.small, x, y - 25
+    with @playerLabel
+      .shadowDistance = 1
+      .sx, .sy = 4, 4
+      .color = {255, 100, 100, 255} if @playerNum == 1
+      .color = {100, 100, 255, 255} if @playerNum == 2
+    --tweens
+    @timer.add .15, ->
+      @tween\to @playerLabel, .25, {sx: 1, sy: 1}
+    @timer.add 1.25, ->
+      @tween\to(@playerLabel, .25, {y: y - 50})\ease 'quartin'
+      @tween\to(@playerLabel.color, .25, {[4]: 0})\ease 'quadout'
+      @tween\to(@playerLabel.shadowColor, .25, {[4]: 0})\ease 'quadout'
+
     --sound stuff
     @walkSoundTimer = 1
 
@@ -265,6 +281,9 @@ export class Player extends Physical
       .printCentered text, font.small, x + 1, y + 17
       .setColor 255, 255, 255, 255
       .printCentered text, font.small, x, y + 16
+
+      --draw label
+      @playerLabel\draw!
 
   drawDebug: =>
     --draw hitbox
