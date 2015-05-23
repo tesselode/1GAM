@@ -6,11 +6,11 @@ export class Hud extends Common
 
     @message = {}
 
-    --fade in from black
-    @tween\to self, .5, {blackAlpha: 0}
 
     --countoff message
     game.signal.register 'game-countoff', ->
+      --fade in from black
+      @tween\to self, .5, {blackAlpha: 0}
 
       message = UIGroup WIDTH / 2, HEIGHT / 2 + HEIGHT
 
