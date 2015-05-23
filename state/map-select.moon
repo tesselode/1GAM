@@ -5,7 +5,7 @@ mapSelect =
     @timer = timer.new!
     @tween = flux.group!
 
-    if previous == game
+    if previous == game or previous == pause
       @blackAlpha = 255
       @tween\to self, .5, {blackAlpha: 0}
     else

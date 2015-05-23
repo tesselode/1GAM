@@ -29,6 +29,10 @@ export class InputManager
             game.signal.emit 'player-walk', i, dt, 0
 
   keypressed: (key) =>
+    --pausing
+    if key == 'escape'
+      gamestate.push pause
+
     if @enabled
       --jumping
       for i, v in ipairs @controls

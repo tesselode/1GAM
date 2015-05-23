@@ -65,9 +65,10 @@ love.load =  ->
     sound[file\match('(.*).wav')] = Sound 'sound/'..file
 
   --load states
-  require 'state.game'
   require 'state.title'
   require 'state.map-select'
+  require 'state.game'
+  require 'state.pause'
 
   --initialize gamestates
   with gamestate
