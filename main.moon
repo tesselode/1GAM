@@ -73,8 +73,3 @@ love.load =  ->
   with gamestate
     .switch title
     .registerEvents!
-
-love.keypressed = (key) ->
-  --boss key
-  if key == 'escape'
-    love.event.quit!
