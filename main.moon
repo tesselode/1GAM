@@ -7,10 +7,14 @@ love.load =  ->
   WIDTH = 768
   HEIGHT = 432
 
-  --options
+  --load options
+  export option
   option =
     scale: 1
     fullscreen: false
+  with love.filesystem
+    if .exists 'options'
+      option = .load('options')!
 
   --apply window options
   if option.fullscreen
@@ -27,6 +31,7 @@ love.load =  ->
   anim8 = require 'lib.anim8'
   flux = require 'lib.flux'
   lume = require 'lib.lume'
+  serialize = require 'lib.ser'
   require 'lib.extra'
 
   --load images

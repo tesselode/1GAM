@@ -32,7 +32,11 @@ options =
       else
         love.window.setMode WIDTH * option.scale, HEIGHT * option.scale, {fullscreen: false}
 
+    --back option
     @menu\addOption MenuOptionText 'Back', font.medium, WIDTH / 2, HEIGHT * .7, =>
+      --save data
+      love.filesystem.write 'options', serialize option
+
       gamestate.switch title
 
     @canvas = love.graphics.newCanvas WIDTH, HEIGHT
