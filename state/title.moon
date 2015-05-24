@@ -2,7 +2,7 @@ export title
 
 title =
   enter: =>
-    @titleText = UIText 'Insert title here', font.big, WIDTH / 2, HEIGHT * .3
+    @titleText = UIText 'Bubble party!', font.big, WIDTH / 2, HEIGHT * .3
 
     --menu definition
     @menu = Menu!
